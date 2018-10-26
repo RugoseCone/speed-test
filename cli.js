@@ -160,7 +160,15 @@ st.on('done', () => {
 
 st.on('error', err => {
 	if (err.code === 'ENOTFOUND') {
+		if (cli.flags.json) {
+			stats.ping = 0;
+			stats.upload = 0;
+			stats.download = 0;
+			console.log(JSON.stringify(stats));
+			return;
+		}
 		logError('Please check your internet connection');
+
 	} else {
 		logError(err);
 	}
